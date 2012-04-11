@@ -255,6 +255,20 @@ cookbook_file  "/usr/local/bin/run_gateway.sh"  do
 end
 
 
+cookbook_file  "/usr/local/bin/run_tops.sh"  do
+	owner USER
+	group USER
+	mode 0744
+	source "tops/run_tops.sh"
+end
+
+cookbook_file  "/usr/local/bin/run_gateway_tops.sh"  do
+	owner USER
+	group USER
+	mode 0744
+	source "tops/run_gateway_tops.sh"
+end
+
 bash "ln-s dosemu, wine sa home direktrijima"   do
       user "root"
       cwd HOME
