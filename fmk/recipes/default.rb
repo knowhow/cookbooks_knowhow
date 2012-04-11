@@ -9,7 +9,8 @@ GCODE_URL_FMK = "http://knowhow-erp-fmk.googlecode.com/files"
 HOME = "/home/" + USER
 GIT_ROOT = HOME + "/github"
 
-
+GIT_URL_ROOT="git://github.com/bringout-fmk"
+ 
 apt_repo "main_ubuntu" do
       url node[:fmk][:ubuntu_archive_url]
       keyserver "keyserver.ubuntu.com"
@@ -111,9 +112,8 @@ bash "extract fmk_drive_c.7z"   do
 	EOH
 end
 
-if (fmk_role == "tops") or (fmk_role == "tops_knjig")
 
-	log "wine direktoriji - root owner"
+if ! /tops/.match(fmk_role).nil?
 
 	directory HOME + "/.wine" do
 	  owner USER 
@@ -127,9 +127,8 @@ if (fmk_role == "tops") or (fmk_role == "tops_knjig")
 	  mode  "0755"
 	end
 
-
     ["tops", "tops/kum1", "tops/kum1/sql", "sigma", "sigma/in", "sigma/out" ].each do |item|
-       directory HOME + "/" + item do
+      directory HOME + "/" + item do
 	  owner USER 
 	  group USER
 	  mode  "0755"
@@ -164,31 +163,30 @@ end
 
 if (fmk_role == "tops_knjig")
 
-directory HOME + "/kase"  do
-  owner USER
-  group USER
-  mode  "0755"
+#directory HOME + "/kase"  do
+#  owner USER
+#  group USER
+#  mode  "0755"
+#end
+
+#cookbook_file  HOME + "/tops/fmk.ini"  do
+#	owner USER
+#	group USER
+#	mode 0644
+#	source "tops_knjig/exe_path/fmk.ini"
+#end
+
+#cookbook_file  "/usr/local/bin/run_kase.sh"  do
+#	owner USER
+#	group USER
+#	mode 0744
+#	source "tops_knjig/run_kase.sh"
+#end
+
+
 end
 
-cookbook_file  HOME + "/tops/fmk.ini"  do
-	owner USER
-	group USER
-	mode 0644
-	source "tops_knjig/exe_path/fmk.ini"
-end
-
-cookbook_file  "/usr/local/bin/run_kase.sh"  do
-	owner USER
-	group USER
-	mode 0744
-	source "tops_knjig/run_kase.sh"
-end
-
-
-end
-
-
-if (fmk_role == "tops")
+if (fmk_role == "tops") || (fmk_role == "tops_knjig")
 
     log "fmk.ini exepath - tops i gateway parametri"
 	cookbook_file  HOME + "/tops/fmk.ini"  do
@@ -305,7 +303,7 @@ end
 
 
 log "ako ne možete pristupiti samba file serveru zvijer-2.bring.out.ba, onda trebate ručno instalirati"
-log "fmk_dsemu_drive_c.7z"
+log "fmk_dosemu_drive_c.7z"
 log "detalji na ticketu http://redmine.bring.out.ba/issues/27228"
 log "ovaj 7z možete skinuti sa bring.out redmine-a: http://redmine.bring.out.ba/attachments/8182/fmk_dosemu_drive_c.7z"
 log "pa ga ručno instalirati unutar sesije na lokaciju ~/.dosemu"
@@ -347,9 +345,7 @@ end
 
 if build_fmk
 
-GIT_ROOT=HOME+"/github"
-GIT_URL_ROOT="git://github.com/bringout-fmk"
-    
+   
     
 [ "fmk_lib", "fmk_common", "fin", "kalk", "fakt", "pos", "os", "ld", "virm", "kam"].each do |item| 
     
@@ -361,6 +357,7 @@ git GIT_ROOT + "/" + item do
       reference "master"
       action :sync
 end
+
 
 end
 
@@ -465,7 +462,7 @@ end
 
 end
 
-if (fmk_role == "tops")
+if ! /tops/.match(fmk_role).nil?
 
 bash "run"   do
       user USER
@@ -479,6 +476,16 @@ bash "run"   do
 EOH
 
 end
+
+git GIT_ROOT + "/sql_synchro" do
+      user USER
+      group USER
+
+      repository GIT_URL_ROOT + "/sql_synchro.git"
+      reference "master"
+      action :sync
+end
+
 
 end
 
