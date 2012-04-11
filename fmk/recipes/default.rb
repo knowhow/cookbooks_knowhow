@@ -297,26 +297,6 @@ end
 
 end
 
-if (fmk_role == "tops")
-
-
-bash "run"   do
-      user USER
-      cwd HOME
-      code <<-EOH
-
-   export HOME=#{HOME}
-
-   DISPLAY=:0 run_gateway.sh
-   DISPLAY=:0 run_tops.sh
-EOH
-
-end
-
-
-end
-
-
 
 log "ako ne možete pristupiti samba file serveru zvijer-2.bring.out.ba, onda trebate ručno instalirati"
 log "fmk_dsemu_drive_c.7z"
@@ -476,3 +456,22 @@ bash "rc.local update setcap"   do
 end
 
 end
+
+if (fmk_role == "tops")
+
+bash "run"   do
+      user USER
+      cwd HOME
+      code <<-EOH
+
+   export HOME=#{HOME}
+
+   /usr/local/sbin/
+   DISPLAY=:0 run_gateway_tops.sh
+EOH
+
+end
+
+end
+
+
