@@ -213,7 +213,7 @@ if (fmk_role == "tops")
 		mode 0644
 		source "tops/kum_path/sqlpar.template"
         not_if do
-           File.exists?(HIME + "/tops/kum1/sql/sqlpar.dbf")
+           File.exists?(HOME + "/tops/kum1/sql/sqlpar.dbf")
         end
 	end
 
