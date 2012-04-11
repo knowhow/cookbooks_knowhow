@@ -454,10 +454,25 @@ cookbook_file  HOME + "/.dosemu/drive_c/config.sys"  do
 	source "config.sys"
 end
 
-cookbook_file  "/etc/profile.d/setcap_gateway.sh"  do
+
+if (fmk_role == "tops") or (fmk_role == "tops_knjig")
+
+cookbook_file  "/usr/local/sbin/setcap_gateway.sh"  do
 	owner USER
 	group USER
 	mode 0755
 	source "tops/setcap_gateway.sh"
 end
 
+bash "rc.local update setcap"   do
+	      user "root"
+	      code <<-EOH
+
+       mv /etc/rc.local /tmp/rc.local
+       sed -e  's/exit 0/\/usr\/local\/sbin\/setcap_gateway\.sh/' /tmp/rc.local > /etc/rc.local
+       echo exit 0 >> /etc/rc.local
+	EOH
+	not_if  "grep setcap_gateway /etc/rc.local"
+end
+
+end
