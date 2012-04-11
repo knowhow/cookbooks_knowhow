@@ -212,6 +212,9 @@ if (fmk_role == "tops")
 		group USER
 		mode 0644
 		source "tops/kum_path/sqlpar.template"
+        not_if do
+           File.exists?(HIME + "/tops/kum1/sql/sqlpar.dbf")
+        end
 	end
 
 
@@ -221,6 +224,9 @@ if (fmk_role == "tops")
         code <<-EOH
             cat sqlpar.template | sed -e 's/12345678900112345678900212345678900399/#{sql_site}0000000000#{sql_site}9999999999#{sql_site}0000000015#{sql_site}/'  > sqlpar.dbf
 EOH
+        not_if do
+           File.exists?(HOME + "/tops/kum1/sql/sqlpar.dbf")
+        end
     end
 
 	cookbook_file  "/usr/local/bin/run_tops.sh"  do
