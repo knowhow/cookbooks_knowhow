@@ -116,14 +116,14 @@ if (fmk_role == "tops") or (fmk_role == "tops_knjig")
 	log "wine direktoriji - root owner"
 
 	directory HOME + "/.wine" do
-	  owner "root" 
-	  group "root"
+	  owner USER 
+	  group USER
 	  mode  "0755"
 	end
 
 	directory HOME + "/.wine/drive_c" do
-	  owner "root" 
-	  group "root"
+	  owner USER 
+	  group USER
 	  mode  "0755"
 	end
 
@@ -176,7 +176,6 @@ cookbook_file  HOME + "/tops/fmk.ini"  do
 	mode 0644
 	source "tops_knjig/exe_path/fmk.ini"
 end
-
 
 cookbook_file  "/usr/local/bin/run_kase.sh"  do
 	owner USER
@@ -302,7 +301,7 @@ if (fmk_role == "tops")
 
 
 bash "run"   do
-      user "root"
+      user USER
       cwd HOME
       code <<-EOH
 
@@ -455,4 +454,10 @@ cookbook_file  HOME + "/.dosemu/drive_c/config.sys"  do
 	source "config.sys"
 end
 
+cookbook_file  HOME + "/etc/profile.d/setcap_gateway.sh"  do
+	owner USER
+	group USER
+	mode 0755
+	source "tops/setcap_gateway.sh"
+end
 

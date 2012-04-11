@@ -8,6 +8,6 @@ then
 fi
 
 #full screen
-#sudo dosemu -w -E c:\\tops\\ee_dosem.bat &
+#dosemu -w -E c:\\tops\\ee_dosem.bat &
 
-sudo dosemu -E c:\\tops\\ee_dosem.bat &
+dosemu -E c:\\tops\\ee_dosem.bat &
