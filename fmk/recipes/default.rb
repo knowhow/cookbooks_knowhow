@@ -449,8 +449,9 @@ bash "rc.local update setcap"   do
 	      code <<-EOH
 
        mv /etc/rc.local /tmp/rc.local
-       sed -e  's/exit 0/\/usr\/local\/sbin\/setcap_gateway\.sh/' /tmp/rc.local > /etc/rc.local
-       echo exit 0 >> /etc/rc.local
+       sed -e  's/exit 0//' /tmp/rc.local > /etc/rc.local
+       echo "/usr/local/sbin/setcap_gateway.sh" >> /etc/rc.local
+       echo "exit 0" >> /etc/rc.local
 	EOH
 	not_if  "grep setcap_gateway /etc/rc.local"
 end
