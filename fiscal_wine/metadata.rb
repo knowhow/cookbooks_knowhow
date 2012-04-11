@@ -1,0 +1,5 @@
+maintainer       "bring.out doo Sarajevo, Bosnia & Herzegovina" 
+maintainer_email "podrska@bring.out.ba" 
+license          "Apache 2.0" 
+description      "fiscal drajveri linux/wine"
+depends "F18_3rd"

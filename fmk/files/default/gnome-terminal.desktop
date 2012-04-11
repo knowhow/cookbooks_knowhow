@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Exec=/usr/bin/gnome-terminal --window --maximize
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[bs_BA]=terminal
+Name=terminal
+Comment[bs_BA]=
+Comment=
+

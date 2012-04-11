@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=/opt/knowhowERP/util/fp_server.sh
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[bs_BA]=fp_server
+Name=fp_server
+Comment[bs_BA]=
+Comment=

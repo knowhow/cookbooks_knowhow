@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=run_gateway_tops.sh
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[bs_BA]=gateway & tops
+Name=gateway & tops
+Comment[bs_BA]=
+Comment=
