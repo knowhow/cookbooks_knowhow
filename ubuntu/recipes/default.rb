@@ -78,7 +78,7 @@ EOH
 end
 
 log "---- install ---"
-["network-manager-openvpn", "git"].each do |item|
+["network-manager", "network-manager-openvpn", "git"].each do |item|
     package item do
        action :install
     end
