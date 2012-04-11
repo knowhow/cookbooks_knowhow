@@ -39,7 +39,7 @@ log "---- ukloni nepotrebne pakete ---"
 end
 
 log "----- FMK runtime packages ----"
-[ "p7zip-full", "smbclient", "dosemu", "xfonts-terminus-dos",  "cups-pdf", "wine", "winetricks", "vim-gtk"].each do |item|
+[ "p7zip-full", "smbclient", "libcap2-bin", "dosemu", "xfonts-terminus-dos",  "cups-pdf", "wine", "winetricks", "vim-gtk"].each do |item|
    package item do
       action :install
    end
@@ -454,7 +454,7 @@ cookbook_file  HOME + "/.dosemu/drive_c/config.sys"  do
 	source "config.sys"
 end
 
-cookbook_file  HOME + "/etc/profile.d/setcap_gateway.sh"  do
+cookbook_file  "/etc/profile.d/setcap_gateway.sh"  do
 	owner USER
 	group USER
 	mode 0755
