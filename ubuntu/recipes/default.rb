@@ -1,6 +1,9 @@
 ADMIN = node[:ubuntu][:admin]
 USER  = node[:ubuntu][:user]
 
+ADMIN_PWD = node[:ubuntu][:admin_pwd]
+USER_PWD = node[:ubuntu][:user_pwd]
+
 ARCHIVE = node[:ubuntu][:ubuntu_archive_url]
 ADMIN_HOME = "/home/" + ADMIN
 HOME = "/home/" + USER
@@ -43,8 +46,7 @@ user ADMIN do
    home ADMIN_HOME
    shell "/bin/bash"
    supports( :manage_home => true, :non_unique => false )
-   #echo "nekipwd" | makepasswd --clearfrom=- --crypt-md5 |awk '{ print $2 }'
-   password "$1$ed8s53Ot$71TYJvxUXKSuRlWi/yWPc1"
+   password ADMIN_PWD
 end
 
 bash "update user " + ADMIN + "dialout, adm, sudo" do
@@ -64,7 +66,7 @@ user USER do
    home HOME
    shell "/bin/bash"
    supports( :manage_home => true, :non_unique => false )
-   password "$1$06yt7tZS$IFFZIOUxDo4j.hRXvd5ha1" 
+   password USER_PWD
 end
 
 bash "update user " + USER + "dialout, sudo" do
