@@ -61,7 +61,7 @@ end
 
 log "standardni user =  " + USER
 user USER do
-   comment "bring.out user"
+   comment "bring.out klijent"
    gid "users"
    home HOME
    shell "/bin/bash"
